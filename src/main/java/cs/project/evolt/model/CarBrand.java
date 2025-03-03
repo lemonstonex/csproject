@@ -1,20 +1,21 @@
 package cs.project.evolt.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 @Table(name="CarBrand")
 public class CarBrand {
     @Id
     @Column(name="brand_id", unique=true)
-    private long brand_id;
+    private long brandId;
 
-    private String brand_name;
+    @Column(name = "brand_name")
+    private String brandName;
 
-    // !! generate constructor, getter, setter
-    // OnetoMany with CarModel 1 brand has multiple models
-    @OneToMany(mappedBy = "carBrand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CarModel> carModel;
+    @OneToMany(mappedBy = "carBrand")
+    private List<CarModel> models;
 }

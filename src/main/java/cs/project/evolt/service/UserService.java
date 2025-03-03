@@ -1,22 +1,17 @@
 package cs.project.evolt.service;
 
-import cs.project.evolt.model.User;
-import cs.project.evolt.repository.CarBrandRepo;
-import cs.project.evolt.repository.UserRepo;
+import cs.project.evolt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserService {
 
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepo userRepo) {
-        this.userRepo = userRepo;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
 

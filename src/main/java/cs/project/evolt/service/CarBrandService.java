@@ -1,17 +1,21 @@
 package cs.project.evolt.service;
 
-import cs.project.evolt.repository.CarBrandRepo;
+import cs.project.evolt.model.CarBrand;
+import cs.project.evolt.repository.CarBrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class CarBrandService {
 
-    private final CarBrandRepo carBrandRepo;
-
     @Autowired
-    public CarBrandService(CarBrandRepo carBrandRepo){
-        this.carBrandRepo = carBrandRepo;
+    private CarBrandRepository carBrandRepository;
+
+    public List<CarBrand> getAllCarBrands() {
+        return carBrandRepository.findAll();
     }
 
 }
