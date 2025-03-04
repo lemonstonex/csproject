@@ -2,10 +2,7 @@ package cs.project.evolt.model;
 
 import cs.project.evolt.common.PlugStatus;
 import cs.project.evolt.common.PlugType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -13,6 +10,7 @@ import lombok.Data;
 @Table(name="Plug")
 public class Plug {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="plug_id", unique=true)
     private long plug_id;
 

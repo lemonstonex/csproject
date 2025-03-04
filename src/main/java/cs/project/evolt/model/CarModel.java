@@ -9,6 +9,7 @@ import lombok.Data;
 public class CarModel {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "model_id", unique = true)
     private long modelId;
 

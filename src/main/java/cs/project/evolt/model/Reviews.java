@@ -1,9 +1,6 @@
 package cs.project.evolt.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -13,6 +10,7 @@ import java.sql.Timestamp;
 @Table(name="Reviews")
 public class Reviews {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="review_id", unique=true)
     private long review_id;
 

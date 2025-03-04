@@ -1,9 +1,6 @@
 package cs.project.evolt.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
 
@@ -12,6 +9,7 @@ import lombok.Data;
 @Table(name="Trip")
 public class Trip {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="trip_id", unique=true)
     private long trip_id;
 

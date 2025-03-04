@@ -9,9 +9,9 @@ import java.util.UUID;
 @Table(name="Station")
 public class Station {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="station_id", unique=true)
-    private UUID station_id;
+    private long station_id;
 
     @Column(name="station_name")
     private String station_name;
@@ -34,7 +34,7 @@ public class Station {
     @Column(name="address")
     private String address;
 
-    public Station(UUID station_id, String station_name, String description, String opentime, String closetime, float lat, float longitude, String address) {
+    public Station(long station_id, String station_name, String description, String opentime, String closetime, float lat, float longitude, String address) {
         this.station_id = station_id;
         this.station_name = station_name;
         this.description = description;
@@ -45,11 +45,11 @@ public class Station {
         this.address = address;
     }
 
-    public UUID getStation_id() {
+    public long getStation_id() {
         return station_id;
     }
 
-    public void setStation_id(UUID station_id) {
+    public void setStation_id(long station_id) {
         this.station_id = station_id;
     }
 

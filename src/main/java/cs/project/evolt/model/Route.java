@@ -1,9 +1,6 @@
 package cs.project.evolt.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -11,6 +8,7 @@ import lombok.Data;
 @Table(name="Route")
 public class Route {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="route_id", unique=true)
     private long route_id;
 
