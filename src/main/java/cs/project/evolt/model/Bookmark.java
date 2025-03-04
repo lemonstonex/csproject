@@ -2,11 +2,15 @@ package cs.project.evolt.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name="Bookmark")
 public class Bookmark {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="bookmark_id", unique=true)

@@ -4,9 +4,11 @@ import cs.project.evolt.common.PlugStatus;
 import cs.project.evolt.common.PlugType;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name="Plug")
 public class Plug {
     @Id

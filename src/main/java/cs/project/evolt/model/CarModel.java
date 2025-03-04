@@ -2,8 +2,10 @@ package cs.project.evolt.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name="CarModel")
 public class CarModel {

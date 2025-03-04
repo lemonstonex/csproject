@@ -2,10 +2,12 @@ package cs.project.evolt.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name="Reviews")
 public class Reviews {

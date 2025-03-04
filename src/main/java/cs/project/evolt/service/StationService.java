@@ -25,23 +25,5 @@ public class StationService {
         return stationRepository.findById(id);
     }
 
-    // String url = "https://evolt-backend-service.dev.evtech.dev/stations/evses";
-
-//    @Autowired
-//    private WebClient.Builder webClientBuilder;
-//
-//
-//    public Station getStations(String url){
-//        return webClientBuilder.build()
-//                .get()
-//                .uri(url)
-//                .retrieve()
-//                // retrieve = fetch the data, bodyToMono = convert to an instance
-//                .bodyToMono(Station.class)
-//                .block();
-//    }
-
-
-
 
 }

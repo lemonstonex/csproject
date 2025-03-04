@@ -1,6 +1,8 @@
 package cs.project.evolt.controller;
 
 import cs.project.evolt.model.Station;
+import cs.project.evolt.model.User;
+import cs.project.evolt.repository.StationRepository;
 import cs.project.evolt.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +16,17 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/stations")
+@RequestMapping("/api/stations")
 public class StationController {
 
     @Autowired
     private StationService stationService;
 
-    @GetMapping
-    public List<Station> getAllStations() {
+    @Autowired
+    private StationRepository stationRepository;
+    @GetMapping("/list")
+    public List<Station> getStations(){
+        System.out.println("Fetching all stations...");
         return stationService.getAllStations();
     }
 

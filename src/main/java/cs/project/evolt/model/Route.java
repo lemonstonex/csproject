@@ -2,9 +2,11 @@ package cs.project.evolt.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name="Route")
 public class Route {
     @Id
@@ -23,4 +25,6 @@ public class Route {
 
     @Column(name="remaining_battery")
     private Integer remaining_battery;
+
+
 }

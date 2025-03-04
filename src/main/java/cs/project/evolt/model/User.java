@@ -2,9 +2,11 @@ package cs.project.evolt.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name="User")
 public class User {
     @Id

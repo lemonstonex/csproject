@@ -1,12 +1,13 @@
 package cs.project.evolt.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name="CarBrand")
 public class CarBrand {
     @Id
@@ -19,4 +20,6 @@ public class CarBrand {
 
     @OneToMany(mappedBy = "carBrand")
     private List<CarModel> models;
+
+
 }

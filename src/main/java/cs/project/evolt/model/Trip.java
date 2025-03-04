@@ -3,11 +3,14 @@ package cs.project.evolt.model;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name="Trip")
 public class Trip {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="trip_id", unique=true)

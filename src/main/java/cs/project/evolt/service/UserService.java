@@ -1,6 +1,5 @@
 package cs.project.evolt.service;
 
-import cs.project.evolt.Request.SignUpRequest;
 import cs.project.evolt.model.User;
 import cs.project.evolt.repository.UserRepository;
 import org.modelmapper.ModelMapper;
