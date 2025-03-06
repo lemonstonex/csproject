@@ -41,7 +41,6 @@ public class SecurityConfig{
                         .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/css/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/js/**")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/signup")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/api/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/api/stations/list")).permitAll()
                         .anyRequest().authenticated() // Require authentication for all other requests

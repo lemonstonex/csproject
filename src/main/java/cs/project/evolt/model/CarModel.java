@@ -1,5 +1,6 @@
 package cs.project.evolt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,10 +23,17 @@ public class CarModel {
     private String horsepower;
 
     @Column(name = "efficiency")
-    private Double efficiency;
+    private Double efficiency; //energy_consump
+
+    @Column(name = "wtlp")
+    private String wtlp;
+
+    @Column(name = "battery_cap")
+    private Double battery_cap;
 
     @ManyToOne
     @JoinColumn(name="car_brand_id", nullable=false)
+    @JsonBackReference
     private CarBrand carBrand;
 
 

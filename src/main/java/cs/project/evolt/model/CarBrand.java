@@ -1,5 +1,6 @@
 package cs.project.evolt.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class CarBrand {
     private String brandName;
 
     @OneToMany(mappedBy = "carBrand")
+    @JsonManagedReference
     private List<CarModel> models;
 
 
