@@ -1,8 +1,11 @@
 package cs.project.evolt.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -25,6 +28,10 @@ public class User {
 
     @Column(name="role")
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-reference")
+    private List<Reviews> reviewsList;
 
     public long getModel_id() {
         return model_id;

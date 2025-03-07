@@ -1,8 +1,10 @@
 package cs.project.evolt.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -36,5 +38,8 @@ public class Station {
     @Column(name="address")
     private String address;
 
+    @OneToMany(mappedBy = "station")
+    @JsonManagedReference("station-reference") // มีหลาย reference ต้องตั้งชื่อ
+    private List<Reviews> reviewsList;
 
 }

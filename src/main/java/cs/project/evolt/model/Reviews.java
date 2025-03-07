@@ -1,10 +1,13 @@
 package cs.project.evolt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -19,12 +22,29 @@ public class Reviews {
     @Column(name="comment")
     private String comment;
 
-    @Column(name="station_id")
-    private long station_id;
+    @ManyToOne
+    @JoinColumn(name="station_id", nullable=false)
+    @JsonBackReference("station-reference") // มีหลาย reference ต้องตั้งชื่อ
+    private Station station;
 
-    @Column(name="user_id")
-    private long user_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference("user-reference") // มีหลาย reference ต้องตั้งชื่อ
+    private User user;
+
 
     @Column(name="create_date")
-    private Timestamp create_date;
+    private LocalDateTime create_date;
+
+    @JsonProperty("station_id")
+    public long getStationId() {
+        return station != null ? station.getStation_id() : 0;
+    }
+
+    @JsonProperty("user_id")
+    public long getUserId() {
+        return user != null ? user.getUser_id() : 0;
+    }
+
+
 }

@@ -1,11 +1,18 @@
 package cs.project.evolt.service;
+import cs.project.evolt.DTO.ReviewDTO;
 import cs.project.evolt.model.Reviews;
+import cs.project.evolt.model.Station;
+import cs.project.evolt.model.User;
 import cs.project.evolt.repository.ReviewRepository;
+import cs.project.evolt.repository.StationRepository;
+import cs.project.evolt.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewService {
@@ -13,16 +20,28 @@ public class ReviewService {
     @Autowired
     private ReviewRepository userReviewRepository;
 
+    @Autowired
+    private StationRepository stationRepository;
+
+    @Autowired
+    private UserRepository userRepository;
     public List<Reviews> getAllReviews() {
         return userReviewRepository.findAll();
     }
 
-    public Optional<Reviews> getReviewById(Long id) {
-        return userReviewRepository.findById(id);
-    }
+    public void saveReview(String comment, Long stationId, Long userId) {
+        Station station = stationRepository.findById(stationId)
+                .orElseThrow(() -> new IllegalArgumentException("Station not found for id " + stationId));
 
-    public Reviews saveReview(Reviews review) {
-        return userReviewRepository.save(review);
+        User user = userRepository.findById(String.valueOf(userId))
+                .orElseThrow(() -> new IllegalArgumentException("User not found for id " + userId));
+        Reviews review = new Reviews();
+        review.setComment(comment);
+        review.setStation(station);  // Set the fetched station
+        review.setUser(user);        // Set the fetched user
+        review.setCreate_date(LocalDateTime.now());
+
+        userReviewRepository.save(review);
     }
 
     public void deleteReview(Long id) {
