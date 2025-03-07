@@ -37,8 +37,8 @@ public class ReviewService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found for id " + userId));
         Reviews review = new Reviews();
         review.setComment(comment);
-        review.setStation(station);  // Set the fetched station
-        review.setUser(user);        // Set the fetched user
+        review.setStation(station);
+        review.setUser(user);
         review.setCreate_date(LocalDateTime.now());
 
         userReviewRepository.save(review);
