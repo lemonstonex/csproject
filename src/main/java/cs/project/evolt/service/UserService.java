@@ -25,6 +25,14 @@ public class UserService {
         return userRepository.findByEmail(email) == null;
     }
 
+    public boolean checkPassword(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            return passwordEncoder.matches(password, user.getPassword());
+        }
+        return false;
+    }
+
 
     public User addUser(User user) {
         User record = modelMapper.map(user, User.class);
@@ -36,5 +44,7 @@ public class UserService {
         return record;
     }
 
-
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
