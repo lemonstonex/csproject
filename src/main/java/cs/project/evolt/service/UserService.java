@@ -25,8 +25,8 @@ public class UserService {
         return userRepository.findByEmail(email) == null;
     }
 
-    public boolean checkPassword(String username, String password) {
-        User user = userRepository.findByUsername(username);
+    public boolean checkPassword(String email, String password) {
+        User user = userRepository.findByEmail(email);
         if (user != null) {
             return passwordEncoder.matches(password, user.getPassword());
         }
@@ -47,4 +47,9 @@ public class UserService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }

@@ -6,9 +6,9 @@ public class AuthResponse {
     private String message;
     private User user;
 
-    public AuthResponse(String message, User user) {
+    public AuthResponse(String message, User username) {
         this.message = message;
-        this.user = user;
+        this.user = username;
     }
 
     public String getMessage() {

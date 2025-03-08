@@ -6,6 +6,7 @@ import cs.project.evolt.Response.ErrorResponse;
 import cs.project.evolt.model.User;
 import cs.project.evolt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,13 +29,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        boolean isAuthenticated = userService.checkPassword(loginRequest.getUsername(), loginRequest.getPassword());
+        boolean isAuthenticated = userService.checkPassword(loginRequest.getEmail(), loginRequest.getPassword());
 
-        if (isAuthenticated) {
-            User user = userService.getUserByUsername(loginRequest.getUsername());  // Assume you have this method
-            return ResponseEntity.ok(new AuthResponse("Login successful", user));
-        } else {
-            return ResponseEntity.status(401).body(new ErrorResponse("Invalid username or password"));
+        if (!isAuthenticated) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ErrorResponse("Invalid password"));
         }
+
+
+        User user = userService.getUserByEmail(loginRequest.getEmail()); // fetch user from email
+//        if (user == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body(new ErrorResponse("User not found"));
+//        }
+
+        return ResponseEntity.ok(new AuthResponse("Login successful", user));
     }
 }
