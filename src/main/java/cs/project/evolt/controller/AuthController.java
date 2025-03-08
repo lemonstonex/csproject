@@ -29,6 +29,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        boolean isExisted = userService.isEmailAvailable(loginRequest.getEmail());
+        // ถ้าเมลว่าง = email ไม่เคยลงทะเบียน = never exists
+        if (isExisted) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("User not found"));
+        }
+        User user = userService.getUserByEmail(loginRequest.getEmail()); // fetch user from email
+
         boolean isAuthenticated = userService.checkPassword(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (!isAuthenticated) {
@@ -36,12 +44,6 @@ public class AuthController {
                     .body(new ErrorResponse("Invalid password"));
         }
 
-
-        User user = userService.getUserByEmail(loginRequest.getEmail()); // fetch user from email
-//        if (user == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body(new ErrorResponse("User not found"));
-//        }
 
         return ResponseEntity.ok(new AuthResponse("Login successful", user));
     }
