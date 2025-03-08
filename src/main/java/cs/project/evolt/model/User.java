@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.*;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @Entity
@@ -29,9 +30,15 @@ public class User {
     @Column(name="role")
     private String role;
 
+//    @OneToMany(mappedBy = "user")
+//    @JsonManagedReference("user-reference")
+//    private List<Reviews> reviewsList;
+
+
     @OneToMany(mappedBy = "user")
     @JsonManagedReference("user-reference")
-    private List<Reviews> reviewsList;
+    private List<Bookmark> bookmarkList;
+
 
     public long getModel_id() {
         return model_id;
