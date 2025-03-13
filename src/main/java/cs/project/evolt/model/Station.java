@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -38,8 +37,18 @@ public class Station {
     @Column(name="address")
     private String address;
 
+    @Column(name = "average_rating")
+    private Double average_rating = 0.0; // Default value
+
+    @Column(name="port_available")
+    private Integer port_available;
+
     @OneToMany(mappedBy = "station")
     @JsonManagedReference("station-reference") // มีหลาย reference ต้องตั้งชื่อ
     private List<Reviews> reviewsList;
+
+    @OneToMany(mappedBy = "station")
+    @JsonManagedReference("station-reference")
+    private List<Plug> plugList;
 
 }

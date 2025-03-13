@@ -1,25 +1,22 @@
 package cs.project.evolt.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
-@Table(name="Route")
-public class Route {
+@Table(name="StationRating")
+public class StationRating {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="route_id", unique=true)
-    private long route_id;
+    @Column(name="rating_id", unique=true)
+    private long rating_id;
 
-    private Double beforeCharging;
-    private Double afterCharging;
-
-    @Column(name="remaining_battery")
-    private Integer remaining_battery;
 
     @ManyToOne
     @JoinColumn(name="station_id", nullable=false)
@@ -27,8 +24,8 @@ public class Route {
     private Station station;
 
     @ManyToOne
-    @JoinColumn(name="trip_id", nullable=false)
-    @JsonBackReference("trip_id") // มีหลาย reference ต้องตั้งชื่อ
-    private Trip trip;
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference("user-reference") // มีหลาย reference ต้องตั้งชื่อ
+    private User user;
 
 }

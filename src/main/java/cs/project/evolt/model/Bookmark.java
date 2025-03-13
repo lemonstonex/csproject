@@ -37,4 +37,9 @@ public class Bookmark {
         return station != null ? station.getStation_id() : 0;
     }
 
+    @JsonProperty("user_id")
+    public long getUserId() {
+        return user != null ? user.getUser_id() : 0;
+    }
+
 }

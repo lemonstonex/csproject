@@ -17,16 +17,6 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-//    @PostMapping("/login")
-//    public String login(@RequestParam String username, @RequestParam String password) {
-//        boolean isAuthenticated = userService.checkPassword(username, password);
-//        if (isAuthenticated) {
-//            return "Login successful";
-//        } else {
-//            return "Invalid username or password";
-//        }
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         boolean isExisted = userService.isEmailAvailable(loginRequest.getEmail());

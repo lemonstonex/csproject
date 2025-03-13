@@ -19,17 +19,17 @@ public class CarModel {
     @Column(name = "model_name")
     private String model_name;
 
-    @Column(name = "horsepower")
-    private String horsepower;
+    @Column(name = "on_board_charger")
+    private float on_board_charger;
 
-    @Column(name = "efficiency")
-    private Double efficiency; //energy_consump
+    @Column(name = "max_range")
+    private double max_range;
 
-    @Column(name = "wtlp")
-    private String wtlp;
+    @Column(name = "energy_consump")
+    private double energy_consump;
 
-    @Column(name = "battery_cap")
-    private Double battery_cap;
+    @Column(name = "battery_size")
+    private float battery_size;
 
     @ManyToOne
     @JoinColumn(name="car_brand_id", nullable=false)

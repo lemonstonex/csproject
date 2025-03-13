@@ -1,7 +1,7 @@
 package cs.project.evolt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import cs.project.evolt.common.PlugStatus;
-import cs.project.evolt.common.PlugType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +16,6 @@ public class Plug {
     @Column(name="plug_id", unique=true)
     private long plug_id;
 
-    @Column(name="station_id")
-    private long station_id; // one station can have multiple plugs
-
     @Column(name="status")
     private PlugStatus status;
 
@@ -30,5 +27,10 @@ public class Plug {
 
     @Column(name="maxKwh")
     private float maxKwh; // power output
+
+    @ManyToOne
+    @JoinColumn(name="station_id", nullable=false)
+    @JsonBackReference("station-reference") // มีหลาย reference ต้องตั้งชื่อ
+    private Station station;
 
 }

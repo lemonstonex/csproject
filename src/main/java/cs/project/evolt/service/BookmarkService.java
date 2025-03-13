@@ -1,8 +1,6 @@
 package cs.project.evolt.service;
 
-import cs.project.evolt.DTO.BookmarkRequest;
 import cs.project.evolt.model.Bookmark;
-import cs.project.evolt.model.Reviews;
 import cs.project.evolt.model.Station;
 import cs.project.evolt.model.User;
 import cs.project.evolt.repository.BookmarkRepository;
@@ -11,7 +9,6 @@ import cs.project.evolt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service

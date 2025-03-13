@@ -1,18 +1,16 @@
 package cs.project.evolt.DTO;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
 
 
-public class ReviewDTO {
+public class ReviewRequest {
         private Long review_id;
         private String comment;
         private LocalDateTime create_date;
         private Long stationId;
         private Long userId;
 
-    public ReviewDTO(Long review_id, String comment, LocalDateTime create_date, Long stationId, Long userId) {
+    public ReviewRequest(Long review_id, String comment, LocalDateTime create_date, Long stationId, Long userId) {
         this.review_id = review_id;
         this.comment = comment;
         this.create_date = create_date;

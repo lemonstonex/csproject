@@ -6,29 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @NoArgsConstructor
-@Table(name="Route")
-public class Route {
+@Data
+@Table(name="Distance")
+public class Distance {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="route_id", unique=true)
-    private long route_id;
+    @Column(name="distance_id", unique=true)
+    private long distance_id;
 
-    private Double beforeCharging;
-    private Double afterCharging;
+    private float distance;
 
-    @Column(name="remaining_battery")
-    private Integer remaining_battery;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="station_id", nullable=false)
     @JsonBackReference("station-reference") // มีหลาย reference ต้องตั้งชื่อ
     private Station station;
+    // trip_id, distance_id, station_id, distance
 
     @ManyToOne
-    @JoinColumn(name="trip_id", nullable=false)
-    @JsonBackReference("trip_id") // มีหลาย reference ต้องตั้งชื่อ
+    @JoinColumn(name = "trip_id", nullable=false)
+    @JsonBackReference("trip-reference")
     private Trip trip;
-
 }

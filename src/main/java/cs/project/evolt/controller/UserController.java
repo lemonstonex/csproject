@@ -21,8 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/signup")
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {
             if (!userService.isEmailAvailable(user.getEmail())) {

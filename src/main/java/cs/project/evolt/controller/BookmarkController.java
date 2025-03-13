@@ -1,12 +1,9 @@
 package cs.project.evolt.controller;
 
 import cs.project.evolt.DTO.BookmarkRequest;
-import cs.project.evolt.DTO.ReviewDTO;
 import cs.project.evolt.model.Bookmark;
-import cs.project.evolt.model.Reviews;
 import cs.project.evolt.service.BookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

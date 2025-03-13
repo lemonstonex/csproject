@@ -1,6 +1,6 @@
 package cs.project.evolt.controller;
 
-import cs.project.evolt.DTO.ReviewDTO;
+import cs.project.evolt.DTO.ReviewRequest;
 import cs.project.evolt.model.Reviews;
 import cs.project.evolt.repository.ReviewRepository;
 import cs.project.evolt.service.ReviewService;
@@ -30,7 +30,7 @@ public class ReviewController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveReview(@RequestBody ReviewDTO reviewDTO) {
+    public ResponseEntity<String> saveReview(@RequestBody ReviewRequest reviewDTO) {
         if (reviewDTO.getStationId() == null || reviewDTO.getUserId() == null) {
             return ResponseEntity.badRequest().body("Station ID or User ID cannot be null");
         }

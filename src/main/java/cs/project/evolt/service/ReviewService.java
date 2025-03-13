@@ -1,5 +1,4 @@
 package cs.project.evolt.service;
-import cs.project.evolt.DTO.ReviewDTO;
 import cs.project.evolt.model.Reviews;
 import cs.project.evolt.model.Station;
 import cs.project.evolt.model.User;
@@ -11,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ReviewService {

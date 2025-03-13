@@ -1,9 +1,13 @@
 package cs.project.evolt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -16,24 +20,22 @@ public class Trip {
     @Column(name="trip_id", unique=true)
     private long trip_id;
 
-    @Column(name="user_id")
-    private long user_id;
-
-    @Column(name="start_location")
-    private float start_location;
-
-    @Column(name="dest_location")
-    private float dest_location;
-
-    @Column(name="distance")
-    private float distance;
-
-    @Column(name="trip_type")
-    private String trip_type;
+    @Column(name="total_distance")
+    private float total_distance; // start -> dest
 
     @Column(name="current_battery")
     private Integer current_battery;
 
-    @Column(name="charge_count")
-    private Integer charge_count;
+    @OneToOne
+    @JoinColumn(name="model_id", nullable=false)
+    @JsonBackReference("model-reference") // มีหลาย reference ต้องตั้งชื่อ
+    private CarModel userModel;
+
+    @OneToMany(mappedBy = "trip")
+    @JsonManagedReference("trip-reference") // มีหลาย reference ต้องตั้งชื่อ
+    private List<Route> routeList;
+
+    @OneToMany(mappedBy = "trip")
+    @JsonManagedReference("trip-reference")
+    private List<Distance> distancesList;
 }
