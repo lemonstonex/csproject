@@ -38,7 +38,7 @@ public class Reviews {
 
     @JsonProperty("station_id")
     public long getStationId() {
-        return station != null ? station.getStation_id() : 0;
+        return station != null ? station.getStationId() : 0;
     }
 
     @JsonProperty("user_id")

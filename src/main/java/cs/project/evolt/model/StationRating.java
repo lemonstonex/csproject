@@ -17,6 +17,8 @@ public class StationRating {
     @Column(name="rating_id", unique=true)
     private long rating_id;
 
+    @Column(name = "rating", nullable = false)
+    private double rating; // full score of 5 -- with 0.0, 0.5, 1.0, .... , 5.0
 
     @ManyToOne
     @JoinColumn(name="station_id", nullable=false)

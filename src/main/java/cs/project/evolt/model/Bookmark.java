@@ -34,12 +34,39 @@ public class Bookmark {
 
     @JsonProperty("station_id")
     public long getStationId() {
-        return station != null ? station.getStation_id() : 0;
+        return station != null ? station.getStationId() : 0;
     }
 
     @JsonProperty("user_id")
     public long getUserId() {
         return user != null ? user.getUserId() : 0;
     }
+
+    @JsonProperty("station_name")
+    public String getStationName() {
+        return station != null ? station.getStation_name() : null;
+    }
+
+    @JsonProperty("address")
+    public String getAddress() {
+        return station != null ? station.getAddress() : null;
+    }
+
+
+    @JsonProperty("port_available")
+    public Integer getPortAvailable() {
+        return station != null && station.getPort_available() != null ? station.getPort_available() : 0;
+    }
+
+    @JsonProperty("rating_count")
+    public int getRatingCount() {
+        return station != null ? station.getRatingCount() : 0;
+    }
+
+    @JsonProperty("average_rating")
+    public Double getAverageRating() {
+        return station != null ? station.getAverageRating() : 0.0;
+    }
+
 
 }
