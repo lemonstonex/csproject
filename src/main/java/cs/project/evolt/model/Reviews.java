@@ -43,7 +43,7 @@ public class Reviews {
 
     @JsonProperty("user_id")
     public long getUserId() {
-        return user != null ? user.getUser_id() : 0;
+        return user != null ? user.getUserId() : 0;
     }
 
 

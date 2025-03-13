@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
-    List<Bookmark> findByUser(User user);
-
+    List<Bookmark> findByUser_UserId(long userId); // Use UserId from the User object
 }
+

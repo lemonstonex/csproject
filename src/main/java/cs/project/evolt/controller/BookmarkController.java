@@ -2,6 +2,8 @@ package cs.project.evolt.controller;
 
 import cs.project.evolt.DTO.BookmarkRequest;
 import cs.project.evolt.model.Bookmark;
+import cs.project.evolt.model.Station;
+import cs.project.evolt.repository.BookmarkRepository;
 import cs.project.evolt.service.BookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,18 @@ public class BookmarkController {
     @Autowired
     private BookmarkService bookmarkService;
 
+    @Autowired
+    private BookmarkRepository bookmarkRepository;
+
     @GetMapping("/list")
     public List<Bookmark> getBookmark() {
         System.out.println("Fetching all bookmark...");
         return bookmarkService.getAllBookmarks();
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Bookmark> getBookmarksByUserID(@PathVariable Long userId) {
+        return bookmarkRepository.findByUser_UserId(userId);
     }
 
     @PostMapping("/save")
@@ -34,4 +44,7 @@ public class BookmarkController {
         return ResponseEntity.ok("Deleted successfully");
 
     }
+
+
+
 }

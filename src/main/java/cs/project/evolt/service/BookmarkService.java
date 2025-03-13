@@ -30,7 +30,7 @@ public class BookmarkService {
 
     public void saveBookmark(Long bookmark_id, Long stationId, Long userId) {
         User user = userRepository.findById(String.valueOf(userId))
-                .orElseThrow(() -> new RuntimeException("User not found !!!!!!!"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Station station = stationRepository.findById(stationId)
                 .orElseThrow(() -> new RuntimeException("Station not found"));
