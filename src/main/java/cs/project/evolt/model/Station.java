@@ -2,6 +2,7 @@ package cs.project.evolt.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cs.project.evolt.common.PlugStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,11 +24,9 @@ public class Station {
     @Column(name="description")
     private String description;
 
-    @Column(name="opentime")
-    private String opentime;
+    @Column(name="openhours")
+    private String openhours;
 
-    @Column(name="closetime")
-    private String closetime;
 
     @Column(name="lat")
     private float lat;
@@ -70,6 +69,17 @@ public class Station {
         }
         double sum = stationRatings.stream().mapToDouble(StationRating::getRating).sum();
         return Math.round((sum / stationRatings.size()) * 10.0) / 10.0;
+    }
+
+    @Transient
+    @JsonProperty("port_available")
+    public int getPortAvailable() {
+        if (plugList == null) {
+            return 0;
+        }
+        return (int) plugList.stream()
+                .filter(plug -> plug.getStatus() == PlugStatus.available)
+                .count();
     }
 
 }

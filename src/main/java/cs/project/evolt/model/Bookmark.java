@@ -54,8 +54,8 @@ public class Bookmark {
 
 
     @JsonProperty("port_available")
-    public Integer getPortAvailable() {
-        return station != null && station.getPort_available() != null ? station.getPort_available() : 0;
+    public int getPortAvailable() {
+        return station != null ? station.getPortAvailable() : 0;
     }
 
     @JsonProperty("rating_count")
