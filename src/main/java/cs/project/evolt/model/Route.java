@@ -1,34 +1,34 @@
 package cs.project.evolt.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name="Route")
 public class Route {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="route_id", unique=true)
     private long route_id;
 
-    private Double beforeCharging;
-    private Double afterCharging;
+    @ManyToOne
+    @JoinColumn(name="trip_id", nullable=false)
+    @JsonBackReference("trip-reference")
+    private Trip trip;
+
+    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference("route-reference")
+    private List<ChargingInfo> chargingList;
 
     @Column(name="remaining_battery")
     private Integer remaining_battery;
-
-    @ManyToOne
-    @JoinColumn(name="station_id", nullable=false)
-    @JsonBackReference("station-reference") // มีหลาย reference ต้องตั้งชื่อ
-    private Station station;
-
-    @ManyToOne
-    @JoinColumn(name="trip_id", nullable=false)
-    @JsonBackReference("trip_id") // มีหลาย reference ต้องตั้งชื่อ
-    private Trip trip;
 
 }

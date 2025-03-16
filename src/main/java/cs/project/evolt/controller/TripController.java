@@ -1,13 +1,14 @@
 package cs.project.evolt.controller;
 
+import cs.project.evolt.DTO.BookmarkRequest;
+import cs.project.evolt.DTO.TripRequest;
 import cs.project.evolt.model.Station;
 import cs.project.evolt.model.Trip;
 import cs.project.evolt.service.StationService;
 import cs.project.evolt.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +24,15 @@ public class TripController {
         System.out.println("Fetching all trips...");
         return tripService.getAllTrips();
     }
+
+    @PostMapping("/save")
+    public Trip createTrip(@RequestBody TripRequest tripRequest) {
+        return tripService.createTrip(tripRequest);
+    }
+
+    @GetMapping("/{trip_id}")
+    public Trip getTripById(@PathVariable Long trip_id) {
+        return tripService.getTripById(trip_id);
+    }
+
 }

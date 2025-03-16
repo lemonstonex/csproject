@@ -1,6 +1,7 @@
 package cs.project.evolt.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,10 +23,14 @@ public class Distance {
     @JoinColumn(name="station_id", nullable=false)
     @JsonBackReference("station-reference") // มีหลาย reference ต้องตั้งชื่อ
     private Station station;
-    // trip_id, distance_id, station_id, distance
 
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable=false)
     @JsonBackReference("trip-reference")
     private Trip trip;
+
+    @JsonProperty("station_id")
+    public Long getStationId() {
+        return (station != null) ? station.getStationId() : null;
+    }
 }

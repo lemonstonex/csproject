@@ -35,7 +35,14 @@ public class Trip {
     @JsonManagedReference("trip-reference") // มีหลาย reference ต้องตั้งชื่อ
     private List<Route> routeList;
 
-    @OneToMany(mappedBy = "trip")
+    @OneToMany(mappedBy = "trip",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference("trip-reference")
     private List<Distance> distancesList;
+
+    @Transient
+    public Long getModelId() {
+        return userModel != null ? userModel.getModelId() : null;
+    }
+
+
 }
