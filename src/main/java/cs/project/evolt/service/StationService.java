@@ -1,7 +1,10 @@
 package cs.project.evolt.service;
 import cs.project.evolt.model.Station;
+import cs.project.evolt.model.StationRating;
+import cs.project.evolt.model.User;
 import cs.project.evolt.repository.StationRatingRepository;
 import cs.project.evolt.repository.StationRepository;
+import cs.project.evolt.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class StationService {
 
     @Autowired
     private StationRatingRepository stationRatingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -37,6 +43,58 @@ public class StationService {
     public int getRatingCount(long stationId) {
         return stationRatingRepository.countByStation_StationId(stationId);
     }
+
+
+    public boolean rateStation(long stationId, long userId, int rating) {
+        Optional<Station> stationOptional = stationRepository.findById(stationId);
+        Optional<User> userOptional = userRepository.findById(String.valueOf(userId));  // หา user กับ station
+
+        if (stationOptional.isPresent() && userOptional.isPresent()) {
+            Station station = stationOptional.get();
+            User user = userOptional.get();
+
+            StationRating stationRating = new StationRating();
+            stationRating.setStation(station);
+            stationRating.setUser(user);
+            stationRating.setRating(rating);
+
+            stationRatingRepository.save(stationRating);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public boolean updateUserRating(long stationId, long userId, int rating) {
+        Optional<Station> stationOptional = stationRepository.findById(stationId);
+        Optional<User> userOptional = userRepository.findById(String.valueOf(userId));  // หา user กับ station
+
+        if (stationOptional.isPresent() && userOptional.isPresent()) {
+            Station station = stationOptional.get();
+            User user = userOptional.get();
+
+            Optional<StationRating> existingRating = stationRatingRepository.findByStation_StationIdAndUser_UserId(stationId, userId);
+
+            if (existingRating.isPresent()) {
+                StationRating stationRating = existingRating.get();
+                stationRating.setRating(rating);
+                stationRatingRepository.save(stationRating);
+            } else {
+
+                StationRating newRating = new StationRating();
+                newRating.setStation(station);
+                newRating.setUser(user);
+                newRating.setRating(rating);
+                stationRatingRepository.save(newRating);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
 
 
 }

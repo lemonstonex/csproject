@@ -30,4 +30,16 @@ public class StationRating {
     @JsonBackReference("user-reference") // มีหลาย reference ต้องตั้งชื่อ
     private User user;
 
+    @JsonProperty("user_id")
+    public Long getUserId() {
+        return user != null ? user.getUserId() : null;
+    }
+
+    @JsonProperty("user_id")
+    public void setUserId(Long userId) {
+        if (user == null) {
+            user = new User();
+        }
+        user.setUserId(userId);
+    }
 }

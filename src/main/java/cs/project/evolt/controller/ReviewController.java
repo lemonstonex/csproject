@@ -38,7 +38,7 @@ public class ReviewController {
         try {
             System.out.println("ReviewDTO: " + reviewDTO);
             reviewService.saveReview(reviewDTO.getComment(), reviewDTO.getStationId(), reviewDTO.getUserId());
-            return ResponseEntity.status(HttpStatus.CREATED).body("Review saved successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("saved success");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data: " + e.getMessage());
         }
@@ -48,7 +48,7 @@ public class ReviewController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteReviewById(@PathVariable("id") Long id) {
         reviewService.deleteReview(id);
-        return ResponseEntity.ok("Deleted successfully");
+        return ResponseEntity.ok("deleted success");
 
     }
 
@@ -64,7 +64,7 @@ public class ReviewController {
 
             reviewRepository.save(review);
 
-            return ResponseEntity.ok("Updated successfully");
+            return ResponseEntity.ok("updated success");
         } else {
             return ResponseEntity.notFound().build(); // Return 404
         }

@@ -35,13 +35,13 @@ public class BookmarkController {
     @PostMapping("/save")
     public ResponseEntity<String> saveBookmark(@RequestBody BookmarkRequest bookmarkRequest) {
         bookmarkService.saveBookmark(bookmarkRequest.getBookmark_id(),bookmarkRequest.getStation_id(), bookmarkRequest.getUser_id());
-        return ResponseEntity.ok("Bookmark saved successfully");
+        return ResponseEntity.ok("saved success");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteReviewById(@PathVariable("id") Long id) {
         bookmarkService.deleteBookmark(id);
-        return ResponseEntity.ok("Deleted successfully");
+        return ResponseEntity.ok("Deleted success");
 
     }
 

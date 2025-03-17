@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface StationRatingRepository extends JpaRepository<StationRating, Long> {
     @Query("SELECT COALESCE(AVG(s.rating), 0) FROM StationRating s WHERE s.station.stationId = :stationId")
@@ -19,5 +21,10 @@ public interface StationRatingRepository extends JpaRepository<StationRating, Lo
      */
 
     int countByStation_StationId(long stationId);
+
+    Optional<StationRating> findByStation_StationIdAndUser_UserId(long stationId, long userId);
+
 }
+
+
 
