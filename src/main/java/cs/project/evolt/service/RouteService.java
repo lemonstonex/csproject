@@ -4,6 +4,7 @@ import cs.project.evolt.DTO.CandidateRouteDTO;
 import cs.project.evolt.Response.RouteResponse;
 import cs.project.evolt.model.*;
 import cs.project.evolt.repository.RouteRepository;
+import cs.project.evolt.repository.StationRepository;
 import cs.project.evolt.repository.TripRepository;
 import cs.project.evolt.repository.CarModelRepository;
 import cs.project.evolt.Response.RouteResponse;
@@ -27,6 +28,9 @@ public class RouteService {
 
     @Autowired
     private CarModelRepository carModelRepository;
+
+    @Autowired
+    private StationRepository stationRepository;
 
     /**
      * Calculate optimal routes based on current battery level and station distances
@@ -101,12 +105,17 @@ public class RouteService {
                 int energyUsedWhenCharge = customRound(chargeTo - batteryAtStation);
                 //double energyUsedWhenCharge = chargeTo - batteryAtStation;
 
+
+                Station stationDetails = stationRepository.findById(stationId)
+                        .orElseThrow(() -> new RuntimeException("Station not found with id: " + stationId));
+
+
                 Map<String, Object> route = new HashMap<>();
                 route.put("route_id", stationId);
 
                 List<Map<String, Object>> stationList = new ArrayList<>();
                 Map<String, Object> stationInfo = new HashMap<>();
-                stationInfo.put("stationName", "Station " + stationId);
+                stationInfo.put("stationName", stationDetails.getStation_name());
                 stationInfo.put("stationId", stationId);
                 stationInfo.put("battery_at_station", batteryAtStation);
                 stationInfo.put("charge_to", chargeTo);
@@ -214,6 +223,7 @@ public class RouteService {
         for (Map<String, Object> stationInfo : stationList) {
             ChargingInfo chargingInfo = new ChargingInfo();
             chargingInfo.setRoute(route);
+
             chargingInfo.setStationName((String) stationInfo.get("stationName"));
             chargingInfo.setStationId(((Number) stationInfo.get("stationId")).longValue());
             chargingInfo.setBatteryAtStation(((Number) stationInfo.get("battery_at_station")).intValue());
