@@ -30,63 +30,13 @@ public class User {
     @Column(name="role")
     private String role;
 
-//    @OneToMany(mappedBy = "user")
-//    @JsonManagedReference("user-reference")
-//    private List<Reviews> reviewsList;
-
-
     @OneToMany(mappedBy = "user")
     @JsonManagedReference("user-reference")
     private List<Bookmark> bookmarkList;
 
+//    @Lob
+//    @Column(name = "profile_image", columnDefinition = "LONGBLOB")  // BLOB = Binary large object ex. image, audio, video
+//    private byte[] profileImage;
 
-    public long getModel_id() {
-        return model_id;
-    }
-
-    public void setModel_id(long model_id) {
-        this.model_id = model_id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-// Data= Lombok gens getter, setters
 }
 

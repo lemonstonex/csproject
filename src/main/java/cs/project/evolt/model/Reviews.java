@@ -46,5 +46,10 @@ public class Reviews {
         return user != null ? user.getUserId() : 0;
     }
 
+    @JsonProperty("username")
+    public String getUsername() {
+        return user != null ? user.getUsername() : null;
+    }
+
 
 }

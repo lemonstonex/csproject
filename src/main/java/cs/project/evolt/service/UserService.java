@@ -1,11 +1,16 @@
 package cs.project.evolt.service;
 
+import cs.project.evolt.DTO.UserProfileDTO;
 import cs.project.evolt.model.User;
 import cs.project.evolt.repository.UserRepository;
+import io.jsonwebtoken.io.IOException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -42,6 +47,24 @@ public class UserService {
         record.setModel_id(user.getModel_id());
         userRepository.save(record);
         return record;
+    }
+
+    public boolean updateUserProfile(long userId, UserProfileDTO userProfileUpdateDTO) {
+        Optional<User> userOptional = userRepository.findById(String.valueOf(userId));
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            user.setUsername(userProfileUpdateDTO.getUsername());
+            user.setPassword(userProfileUpdateDTO.getPassword());
+            user.setEmail(userProfileUpdateDTO.getEmail());
+            user.setModel_id(userProfileUpdateDTO.getModelId());
+
+            userRepository.save(user);
+            return true;
+        }
+
+        return false;
     }
 
     public User getUserByUsername(String username) {

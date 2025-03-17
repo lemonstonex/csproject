@@ -1,14 +1,19 @@
 package cs.project.evolt.controller;
 
+import cs.project.evolt.DTO.UserProfileDTO;
+import cs.project.evolt.model.Reviews;
 import cs.project.evolt.model.User;
 import cs.project.evolt.repository.UserRepository;
 import cs.project.evolt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -40,6 +45,22 @@ public class UserController {
     @GetMapping(value = "/list")
     public List<User> getUsers(){
         return userRepository.findAll();
+    }
+
+
+
+    @PutMapping("/profile/{user_id}")
+    public ResponseEntity<String> updateUserProfile(
+            @PathVariable long user_id,
+            @RequestBody UserProfileDTO userProfileDTO) {
+
+        boolean success = userService.updateUserProfile(user_id, userProfileDTO);
+
+        if (success) {
+            return ResponseEntity.ok("updated success");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
     }
 
 
