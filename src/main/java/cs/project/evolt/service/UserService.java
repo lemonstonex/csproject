@@ -56,7 +56,13 @@ public class UserService {
             User user = userOptional.get();
 
             user.setUsername(userProfileUpdateDTO.getUsername());
-            user.setPassword(userProfileUpdateDTO.getPassword());
+
+            // Check if password is provided and not the default value "password"
+            String newPassword = userProfileUpdateDTO.getPassword();
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                user.setPassword(newPassword);
+            }
+
             user.setEmail(userProfileUpdateDTO.getEmail());
             user.setModel_id(userProfileUpdateDTO.getModelId());
 
@@ -66,6 +72,7 @@ public class UserService {
 
         return false;
     }
+
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);

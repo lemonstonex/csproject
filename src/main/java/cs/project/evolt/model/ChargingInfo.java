@@ -27,6 +27,9 @@ public class ChargingInfo {
     @Column(name="station_id")
     private long stationId;
 
+//    @Column(name="plug_id")
+//    private Integer plugId;
+
     @Column(name="battery_at_station")
     private Integer batteryAtStation;
 
@@ -35,4 +38,12 @@ public class ChargingInfo {
 
     @Column(name="energy_used_when_charge")
     private Float energyUsedWhenCharge;
+
+    @Column(name = "charging_time")
+    private Double chargingTime;
+
+    @ManyToOne
+    @JoinColumn(name = "route_result_id", referencedColumnName = "result_id")
+    @JsonBackReference("charging-info-reference")
+    private Result routeResult;
 }

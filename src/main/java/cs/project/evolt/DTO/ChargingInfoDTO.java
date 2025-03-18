@@ -9,6 +9,7 @@ public class ChargingInfoDTO {
     private Long stationId;
     private Double batteryAtStation;
     private Double chargeTo;
-    private String energyUsedWhenCharge;
+    private Double energyUsedWhenCharge;
     private Double remainingBatteryAtDestination;
+//    private Integer plugId;
 }
