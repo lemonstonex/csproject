@@ -45,9 +45,11 @@ public class StationService {
     }
 
 
-    public boolean rateStation(long stationId, long userId, int rating) {
+    public boolean rateStation(long stationId, long userId, double rating) {
+        System.out.println("Attempting to save rating: " + rating); // Debug log
+
         Optional<Station> stationOptional = stationRepository.findById(stationId);
-        Optional<User> userOptional = userRepository.findById(String.valueOf(userId));  // หา user กับ station
+        Optional<User> userOptional = userRepository.findById(String.valueOf(userId));
 
         if (stationOptional.isPresent() && userOptional.isPresent()) {
             Station station = stationOptional.get();
@@ -58,7 +60,11 @@ public class StationService {
             stationRating.setUser(user);
             stationRating.setRating(rating);
 
-            stationRatingRepository.save(stationRating);
+            System.out.println("Value set to entity: " + stationRating.getRating()); // Debug log
+
+            StationRating saved = stationRatingRepository.save(stationRating);
+
+            System.out.println("Value after save: " + saved.getRating()); // Debug log
             return true;
         }
 
@@ -66,7 +72,8 @@ public class StationService {
     }
 
 
-    public boolean updateUserRating(long stationId, long userId, int rating) {
+
+    public boolean updateUserRating(long stationId, long userId, double rating) {
         Optional<Station> stationOptional = stationRepository.findById(stationId);
         Optional<User> userOptional = userRepository.findById(String.valueOf(userId));  // หา user กับ station
 

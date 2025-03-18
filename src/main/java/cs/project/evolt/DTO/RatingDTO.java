@@ -7,5 +7,5 @@ import lombok.Data;
 public class RatingDTO {
     @JsonProperty("user_id")
     private long userId;  // เช็คว่า rate ไปหรือยัง -> PUT instead
-    private int rating;
+    private double rating;
 }

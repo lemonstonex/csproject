@@ -61,6 +61,7 @@ public class Station {
         return stationRatings != null ? stationRatings.size() : 0;
     }
 
+
     @Transient
     @JsonProperty("average_rating")
     public double getAverageRating() {
@@ -68,7 +69,7 @@ public class Station {
             return 0.0;
         }
         double sum = stationRatings.stream().mapToDouble(StationRating::getRating).sum();
-        return Math.round((sum / stationRatings.size()) * 10.0) / 10.0;
+        return sum / stationRatings.size();
     }
 
     @Transient
