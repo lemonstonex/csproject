@@ -37,7 +37,7 @@ public class ChargingInfo {
     private Integer chargeTo;
 
     @Column(name="energy_used_when_charge")
-    private Float energyUsedWhenCharge;
+    private Integer energyUsedWhenCharge;
 
     @Column(name = "charging_time")
     private Double chargingTime;

@@ -114,7 +114,7 @@ public class RouteService {
                 stationInfo.put("stationId", stationId);
                 stationInfo.put("battery_at_station", batteryAtStation);
                 stationInfo.put("charge_to", chargeTo);
-                stationInfo.put("energy_used_when_charge", energyUsedWhenCharge + " %");
+                stationInfo.put("energy_used_when_charge", energyUsedWhenCharge);
                 chargingInfoList.add(stationInfo);
 
                 route.put("chargingInfoList", chargingInfoList);
@@ -189,106 +189,6 @@ public class RouteService {
         return response;
     }
 
-    /**
-     * Save the selected route to the database
-     * @param tripId the ID of the trip
-     * @param routeData the selected route data from the frontend
-     * @return the updated Trip with the new route
-     */
-//    public Trip saveSelectedRoute(Long tripId, Map<String, Object> routeData) {
-//        Trip trip = tripRepository.findById(tripId)
-//                .orElseThrow(() -> new RuntimeException("Trip not found with id: " + tripId));
-//
-//        // Create a new Route entity
-//        Route route = new Route();
-//        route.setTrip(trip);
-//
-//        // Get the remaining battery from the route data
-//        Double remainingBattery = (Double) routeData.get("remaining_battery_at_destination");
-//        route.setRemaining_battery(remainingBattery.intValue());
-//
-//        // Get the charging info list from the route data
-//        List<Map<String, Object>> chargingInfoList = (List<Map<String, Object>>) routeData.get("chargingInfoList");
-//
-//        // Create ChargingInfo entities for each station in the list
-//        List<ChargingInfo> chargingInfoEntities = new ArrayList<>();
-//        for (Map<String, Object> stationInfo : chargingInfoList) {
-//            ChargingInfo chargingInfo = new ChargingInfo();
-//            chargingInfo.setRoute(route);
-//
-//            chargingInfo.setStationName((String) stationInfo.get("stationName"));
-//            chargingInfo.setStationId(((Number) stationInfo.get("stationId")).longValue());
-//            chargingInfo.setBatteryAtStation(((Number) stationInfo.get("battery_at_station")).intValue());
-//            chargingInfo.setChargeTo(((Number) stationInfo.get("charge_to")).intValue());
-//
-//            // Parse the energy used when charge (remove the "%" sign)
-//            String energyUsedStr = (String) stationInfo.get("energy_used_when_charge");
-//            energyUsedStr = energyUsedStr.replace(" %", "");
-//            chargingInfo.setEnergyUsedWhenCharge(Float.parseFloat(energyUsedStr));
-//
-//            chargingInfoEntities.add(chargingInfo);
-//        }
-//
-//        // Set the charging info list to the route
-//        route.setChargingList(chargingInfoEntities);
-//
-//        // Save the route
-//        routeRepository.save(route);
-//
-//        // Add the route to the trip's route list
-//        List<Route> routeList = trip.getRouteList();
-//        if (routeList == null) {
-//            routeList = new ArrayList<>();
-//        }
-//        routeList.add(route);
-//        trip.setRouteList(routeList);
-//
-//        // Save and return the updated trip
-//        return tripRepository.save(trip);
-//    }
-
-//    public Trip saveSelectedRoutes(Long tripId, List<Map<String, Object>> routeListData) {
-//        Trip trip = tripRepository.findById(tripId)
-//                .orElseThrow(() -> new RuntimeException("Trip not found with id: " + tripId));
-//
-//        List<Route> routeEntities = new ArrayList<>();
-//        for (Map<String, Object> routeData : routeListData) {
-//            // Create a new Route entity for each route
-//            Route route = new Route();
-//            route.setTrip(trip);
-//            route.setRoute_id((Long) routeData.get("route_id"));
-//
-//            Double remainingBattery = (Double) routeData.get("remaining_battery_at_destination");
-//            route.setRemaining_battery(remainingBattery.intValue());
-//
-//            List<Map<String, Object>> chargingInfoList = (List<Map<String, Object>>) routeData.get("chargingInfoList");
-//            List<ChargingInfo> chargingInfoEntities = new ArrayList<>();
-//
-//            for (Map<String, Object> stationInfo : chargingInfoList) {
-//                ChargingInfo chargingInfo = new ChargingInfo();
-//                chargingInfo.setRoute(route);
-//                chargingInfo.setStationName((String) stationInfo.get("stationName"));
-//                chargingInfo.setStationId(((Number) stationInfo.get("stationId")).longValue());
-//                chargingInfo.setBatteryAtStation((int) ((Number) stationInfo.get("battery_at_station")).doubleValue());
-//                chargingInfo.setChargeTo((int) ((Number) stationInfo.get("charge_to")).doubleValue());
-//
-//                // Remove "%" from energy used when charge
-//                String energyUsedStr = (String) stationInfo.get("energy_used_when_charge");
-//                energyUsedStr = energyUsedStr.replace(" %", "");
-//                chargingInfo.setEnergyUsedWhenCharge(Float.parseFloat(energyUsedStr));
-//
-//                chargingInfoEntities.add(chargingInfo);
-//            }
-//
-//            route.setChargingList(chargingInfoEntities);
-//            routeRepository.save(route);
-//            routeEntities.add(route);
-//        }
-//
-//        // Add the saved routes to the trip's route list
-//        trip.setRouteList(routeEntities);
-//        return tripRepository.save(trip);
-//    }
 
     public Trip saveSelectedRoutes(Long tripId, Map<String, Object> routeListData) {
         Trip trip = tripRepository.findById(tripId)
@@ -326,9 +226,8 @@ public class RouteService {
                 chargingInfo.setChargeTo((int) ((Number) stationInfo.get("charge_to")).doubleValue());
 
                 // Handle energy used when charging (remove the "%" sign)
-                String energyUsedStr = (String) stationInfo.get("energy_used_when_charge");
-                energyUsedStr = energyUsedStr.replace(" %", "");
-                chargingInfo.setEnergyUsedWhenCharge(Float.parseFloat(energyUsedStr));
+                int energyUsedWhenCharge = (int) stationInfo.get("energy_used_when_charge");
+                chargingInfo.setEnergyUsedWhenCharge(energyUsedWhenCharge);
 
                 chargingInfoEntities.add(chargingInfo); // Add to list
             }

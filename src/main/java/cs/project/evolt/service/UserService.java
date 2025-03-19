@@ -55,23 +55,23 @@ public class UserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            user.setUsername(userProfileUpdateDTO.getUsername());
-
-            // Check if password is provided and not the default value "password"
+            // Update password only if it's provided and not empty
             String newPassword = userProfileUpdateDTO.getPassword();
             if (newPassword != null && !newPassword.trim().isEmpty()) {
-                user.setPassword(newPassword);
+                // Encode the new password before saving
+                String hashedPassword = passwordEncoder.encode(newPassword);
+                user.setPassword(hashedPassword);
             }
 
-            user.setEmail(userProfileUpdateDTO.getEmail());
-            user.setModel_id(userProfileUpdateDTO.getModelId());
-
+            // Save the user only if the password was updated
             userRepository.save(user);
             return true;
         }
 
         return false;
     }
+
+
 
 
     public User getUserByUsername(String username) {
