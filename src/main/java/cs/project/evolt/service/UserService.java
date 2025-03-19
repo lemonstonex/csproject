@@ -55,15 +55,27 @@ public class UserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            // Update password only if it's provided and not empty
             String newPassword = userProfileUpdateDTO.getPassword();
             if (newPassword != null && !newPassword.trim().isEmpty()) {
-                // Encode the new password before saving
                 String hashedPassword = passwordEncoder.encode(newPassword);
                 user.setPassword(hashedPassword);
             }
 
-            // Save the user only if the password was updated
+            String newUsername = userProfileUpdateDTO.getUsername();
+            if (newUsername != null && !newUsername.trim().isEmpty()) {
+                user.setUsername(newUsername);
+            }
+
+            String newEmail = userProfileUpdateDTO.getEmail();
+            if (newEmail != null && !newEmail.trim().isEmpty()) {
+                user.setEmail(newEmail);
+            }
+
+            Long newModelId = userProfileUpdateDTO.getModelId();
+            if (newModelId != null) {
+                user.setModel_id(newModelId);
+            }
+
             userRepository.save(user);
             return true;
         }
