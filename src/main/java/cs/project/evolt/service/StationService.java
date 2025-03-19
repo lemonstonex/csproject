@@ -60,11 +60,8 @@ public class StationService {
             stationRating.setUser(user);
             stationRating.setRating(rating);
 
-            System.out.println("Value set to entity: " + stationRating.getRating()); // Debug log
-
             StationRating saved = stationRatingRepository.save(stationRating);
 
-            System.out.println("Value after save: " + saved.getRating()); // Debug log
             return true;
         }
 

@@ -9,10 +9,7 @@ import cs.project.evolt.repository.CarModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RouteService {
@@ -241,8 +238,6 @@ public class RouteService {
         trip.setRouteList(savedRoutes);
         return tripRepository.save(trip); // Save the updated trip with the new routes
     }
-
-
     private int customRound(double value) {
         int intValue = (int) value; // Extract integer part
         return (value % 1 >= 0.5) ? intValue + 1 : intValue;

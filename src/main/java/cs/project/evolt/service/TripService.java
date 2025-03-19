@@ -37,7 +37,7 @@ public class TripService {
     public Trip createTrip(TripRequest tripRequest) {
         // เรียก model รถก่อน
         CarModel carModel = carModelRepository.findById(tripRequest.getModel_id())
-                .orElseThrow(() -> new RuntimeException("car model not found, try again"));
+                .orElseThrow(() -> new RuntimeException("car model not found"));
 
         Trip trip = new Trip();
         trip.setTotal_distance(tripRequest.getTotal_distance());
@@ -48,7 +48,7 @@ public class TripService {
 
         List<Distance> distances = tripRequest.getDistancesList().stream().map(distanceDTO -> {
             Station station = stationRepository.findById(distanceDTO.getStation_id())
-                    .orElseThrow(() -> new RuntimeException("station not found, try again"));
+                    .orElseThrow(() -> new RuntimeException("station not found"));
 
             Distance distance = new Distance();
             distance.setTrip(savedTrip);

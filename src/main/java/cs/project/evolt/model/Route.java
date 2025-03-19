@@ -24,7 +24,7 @@ public class Route {
     @JsonBackReference("trip-reference")
     private Trip trip;
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("route-reference")
     private List<ChargingInfo> chargingList;
 

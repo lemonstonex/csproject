@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -23,18 +27,11 @@ public class RouteController {
         return routeService.calculateRoutes(tripId);
     }
 
+
+
     @PostMapping("/save/{tripId}")
     public Trip saveRoute(@PathVariable Long tripId, @RequestBody Map<String, Object> routeListData) {
-        // Call the service method to save the routes
         return routeService.saveSelectedRoutes(tripId, routeListData);
     }
 
-
-//    @PostMapping("/save/{tripId}")
-//    public ResponseEntity<Trip> saveSelectedRoute(
-//            @PathVariable Long tripId,
-//            @RequestBody Map<String, Object> routeData) {
-//        Trip updatedTrip = routeService.saveSelectedRoute(tripId, routeData);
-//        return ResponseEntity.ok(updatedTrip);
-//    }
 }

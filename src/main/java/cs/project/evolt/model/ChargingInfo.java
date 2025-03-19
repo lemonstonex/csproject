@@ -17,7 +17,7 @@ public class ChargingInfo {
     private long chargingInfoId;
 
     @ManyToOne
-    @JoinColumn(name="route_id", nullable=false)
+    @JoinColumn(name="route_id", nullable=true)
     @JsonBackReference("route-reference")
     private Route route;
 
@@ -27,8 +27,8 @@ public class ChargingInfo {
     @Column(name="station_id")
     private long stationId;
 
-//    @Column(name="plug_id")
-//    private Integer plugId;
+    @Column(name="plug_id")
+    private long plug_id;
 
     @Column(name="battery_at_station")
     private Integer batteryAtStation;
@@ -42,8 +42,12 @@ public class ChargingInfo {
     @Column(name = "charging_time")
     private Double chargingTime;
 
+    private Float lat;
+    private Float lng;
+
     @ManyToOne
-    @JoinColumn(name = "route_result_id", referencedColumnName = "result_id")
-    @JsonBackReference("charging-info-reference")
-    private Result routeResult;
+    @JoinColumn(name = "result_id")
+    @JsonBackReference("result-reference")
+    private Result result;
+
 }

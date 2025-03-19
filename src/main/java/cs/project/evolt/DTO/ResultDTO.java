@@ -6,10 +6,8 @@ import java.util.List;
 
 @Data
 public class ResultDTO {
-
-    private Long tripId;
-    private Long routeId;
-    private Integer remainingBattery;
+    private long modelId;
+    private Double totalChargingTime;
     private List<ChargingInfoDTO> chargingInfoList;
 
 }
