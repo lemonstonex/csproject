@@ -32,7 +32,7 @@ public class RouteService {
      * @return RouteResponseDTO containing candidate routes
      */
     public RouteResponse calculateRoutes(Long tripId) {
-        // Fetch the trip with all associated data
+        // หาทริป
         Trip trip = tripRepository.findById(tripId)
                 .orElseThrow(() -> new RuntimeException("Trip not found with id: " + tripId));
 
@@ -132,6 +132,16 @@ public class RouteService {
 
                             chargeTo = Math.min(80, batteryAtStation + (batteryRequiredForNextStation + 20));
 
+                            if (chargingInfoList.size() == 1) { // Only one station in the route
+                                // Adjust energy used when charging
+                                energyUsedWhenCharge = customRound(chargeTo - batteryAtStation);
+
+                                // Update the station entry
+                                stationInfo.put("charge_to", chargeTo);
+                                stationInfo.put("energy_used_when_charge", energyUsedWhenCharge);
+                            }
+
+
                             // Check if the car can reach the next station after charging
                             if (chargeTo - batteryRequiredForNextStation >= 10) {
                                 stationDistance = nextStation.getDistance();
@@ -140,16 +150,26 @@ public class RouteService {
                                 chargeTo = Math.min(80, batteryAtStation + (batteryRequiredForRemainingDistance + 20));
                                 energyUsedWhenCharge = customRound(chargeTo - batteryAtStation);
 
+
+                                Station nextStationDetails = stationRepository.findById(nextStation.getStationId())
+                                        .orElseThrow(() -> new RuntimeException("Station not found with id: " + nextStation.getStationId()));
+
+
+
                                 Map<String, Object> nextStationInfo = new HashMap<>();
-                                nextStationInfo.put("stationName", "Station " + nextStation.getStationId());
+                                nextStationInfo.put("stationName", nextStationDetails.getStation_name());
                                 nextStationInfo.put("stationId", nextStation.getStationId());
                                 nextStationInfo.put("battery_at_station", batteryAtStation);
                                 nextStationInfo.put("charge_to", chargeTo);
-                                nextStationInfo.put("energy_used_when_charge", energyUsedWhenCharge + " %");
+                                nextStationInfo.put("energy_used_when_charge", energyUsedWhenCharge);
 
                                 chargingInfoList.add(nextStationInfo);
 
                                 nextStationFound = true;
+
+
+                                batteryRequiredForRemainingDistance -= chargeTo;
+
                                 break;
                             }
                         }
