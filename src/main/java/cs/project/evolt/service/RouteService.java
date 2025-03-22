@@ -169,6 +169,7 @@ public class RouteService {
 
 
                                 batteryRequiredForRemainingDistance -= chargeTo;
+                                chargeTo = 0;
 
                                 break;
                             }
